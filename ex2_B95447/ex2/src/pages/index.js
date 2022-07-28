@@ -6,18 +6,17 @@ import { BenefitListResults } from '../components/benefit/benefit-list-results';
 import { BenefitListToolbar } from '../components/benefit/benefit-list-toolbar';
 import { DashboardLayout } from '../components/dashboard-layout';
 
-class Benefits extends React.Component {
+class Refrescos extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      benefits: [],
-      APIUrl: URL + 'benefits',
+      refrescos: []
     };
   }
 
   componentDidMount() {
-    axios.get(this.state.APIUrl + "?projectName=" + sessionStorage.getItem("project") + "&employerID=" + sessionStorage.getItem("employerID")).then(response => {
-      this.setState({ benefits: response.data });
+    axios.get('https://localhost:7263/api/refrescos').then(response => {
+      this.setState({ refrescos: response.data });
     });
   }
 
@@ -26,7 +25,7 @@ class Benefits extends React.Component {
       <>
         <Head>
           <title>
-            Benefits | Ta' Bueno
+            Refrescos | Examen 2
           </title>
         </Head>
         <Box
@@ -39,7 +38,7 @@ class Benefits extends React.Component {
           <Container maxWidth={false}>
             <BenefitListToolbar />
             <Box sx={{ mt: 3 }}>
-              <BenefitListResults benefits={this.state.benefits} />
+              <BenefitListResults refrescos={this.state.refrescos} />
             </Box>
           </Container>
         </Box>
@@ -48,10 +47,10 @@ class Benefits extends React.Component {
   }
 }
 
-Benefits.getLayout = (page) => (
+Refrescos.getLayout = (page) => (
   <DashboardLayout>
     {page}
   </DashboardLayout>
 );
 
-export default Benefits;
+export default Refrescos;

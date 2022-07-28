@@ -15,54 +15,18 @@ import { useRouter } from 'next/router';
 import Stack from '@mui/material/Stack';
 import { useState } from 'react';
 import {
-  Avatar,
   Box,
   Card,
   Table,
   TableBody,
   TableCell,
   TableHead,
-  TablePagination,
   TableRow,
   Typography
 } from '@mui/material';
 
 
-export const BenefitListResults = ({ benefits, ...rest }) => {
-  const router = useRouter();
-  const [limit, setLimit] = useState(5);
-  const [page, setPage] = useState(0);
-  const [open, setOpen] = React.useState(false);
-
-  const handleLimitChange = (event) => {
-    setLimit(event.target.value);
-    setPage(0);
-  };
-
-  const handlePageChange = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleClickOpen = (benefitName) => {
-    sessionStorage.setItem("benefit", benefitName);
-    setOpen(true);
-  };
-
-  const handleClose = (agreed) => {
-    setOpen(false);
-    if (agreed === true) {
-      axios.delete(URL + "deleteBenefit?benefitName=" + sessionStorage.getItem("benefit") + "&projectName=" + sessionStorage.getItem("project") + "&employerID=" + sessionStorage.getItem("employerID")).then(() => {
-        alert("Benefit deleted successfully");
-        window.location.reload(false);
-      });
-    }
-  };
-
-  const viewBenefit = (benefitName) => {
-    sessionStorage.setItem("benefit", benefitName);
-    router.push('/specificBenefit');
-  }
-
+export const BenefitListResults = ({ refrescos, ...rest }) => {
   return (
     <Card {...rest}>
       <PerfectScrollbar>
@@ -71,24 +35,24 @@ export const BenefitListResults = ({ benefits, ...rest }) => {
             <TableHead>
               <TableRow>
                 <TableCell>
-                  Name
+                  Nombre de la bebida
                 </TableCell>
                 <TableCell>
-                  Description
+                  Cantidad de latas en el sistema
                 </TableCell>
                 <TableCell>
-                  Cost
+                  Costo
                 </TableCell>
                 <TableCell>
-                  Actions
+                  Acciones
                 </TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
-              {benefits.slice(page * limit, page * limit + limit).map(benefit => (
+              {refrescos.map(juguito => (
                 <TableRow
                   hover
-                  key={benefit.benefitName + benefit.projectName + benefit.employerID}
+                  key={juguito.nombre}
                 >
                   <TableCell>
                     <Box
@@ -97,56 +61,33 @@ export const BenefitListResults = ({ benefits, ...rest }) => {
                         display: 'flex'
                       }}
                     >
-                      <Avatar
-                        src={benefit.avatarUrl}
-                        sx={{ mr: 2 }}
-                      >
-                        {getInitials(benefit.benefitName)}
-                      </Avatar>
                       <Typography
                         color="textPrimary"
                         variant="body1"
                       >
-                        {benefit.benefitName}
+                        {juguito.nombre}
                       </Typography>
                     </Box>
                   </TableCell>
                   <TableCell>
-                    {benefit.description}
+                    {juguito.cantidad}
                   </TableCell>
                   <TableCell>
-                    {"CRC" + benefit.cost}
+                    {"CRC " + juguito.precio}
                   </TableCell>
                   <TableCell>
-                    <Stack direction="row" spacing={1}>
-                      <IconButton aria-label="edit" color="primary" onClick={() => viewBenefit(benefit.benefitName)}>
-                        <ReadMoreIcon />
-                      </IconButton>
-                      <IconButton aria-label="delete" color="error" onClick={() => handleClickOpen(benefit.benefitName)}>
-                        <DeleteForeverIcon />
-                      </IconButton>
-                      <Dialog
-                        open={open}
-                        onClose={handleClose}
-                        aria-labelledby="alert-dialog-title"
-                        aria-describedby="alert-dialog-description"
-                      >
-                        <DialogTitle id="alert-dialog-title">
-                          {"Alert: Please read!!!"}
-                        </DialogTitle>
-                        <DialogContent>
-                          <DialogContentText id="alert-dialog-description">
-                            You are about to delete a benefit, this means
-                            that everyone linked to it will lose access to it.
-                            Are you sure?
-                          </DialogContentText>
-                        </DialogContent>
-                        <DialogActions>
-                          <Button onClick={handleClose} variant="outlined" color="primary">Cancel</Button>
-                          <Button onClick={() => handleClose(true)} variant="contained" color="error">Delete</Button>
-                        </DialogActions>
-                      </Dialog>
-                    </Stack>
+                    <Button
+                      color="success"
+                      variant="contained"
+                    >
+                      Agregar
+                    </Button>
+                    <Button
+                      color="error"
+                      variant="contained"
+                    >
+                      Eliminar
+                    </Button>
                   </TableCell>
                 </TableRow>
               ))}
@@ -154,15 +95,6 @@ export const BenefitListResults = ({ benefits, ...rest }) => {
           </Table>
         </Box>
       </PerfectScrollbar>
-      <TablePagination
-        component="div"
-        count={benefits.length}
-        onPageChange={handlePageChange}
-        onRowsPerPageChange={handleLimitChange}
-        page={page}
-        rowsPerPage={limit}
-        rowsPerPageOptions={[5, 10, 25]}
-      />
     </Card>
   );
 };
