@@ -1,11 +1,9 @@
 import {
   Box,
-  Button,
   Typography
 } from '@mui/material';
-import NextLink from 'next/link';
 
-export const BenefitListToolbar = (props) => (
+export const RefrescoListToolbar = (props) => (
   <Box {...props}>
     <Box
       sx={{
@@ -20,21 +18,8 @@ export const BenefitListToolbar = (props) => (
         sx={{ m: 1 }}
         variant="h4"
       >
-        Benefits
+        Máquina expendedora
       </Typography>
-      <Box sx={{ m: 1 }}>
-        <NextLink
-          href="/create_benefit"
-          passHref
-        >
-          <Button
-            color="primary"
-            variant="contained"
-          >
-            Add Benefit
-          </Button>
-        </NextLink>
-      </Box>
     </Box>
     <br></br>
     <hr></hr>

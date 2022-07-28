@@ -1,19 +1,7 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
-import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
-import Dialog from '@mui/material/Dialog';
-import DialogActions from '@mui/material/DialogActions';
-import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
-import DialogTitle from '@mui/material/DialogTitle';
-import { getInitials } from '../../utils/get-initials';
-import IconButton from '@mui/material/IconButton';
-import ReadMoreIcon from '@mui/icons-material/ReadMore';
 import PerfectScrollbar from 'react-perfect-scrollbar';
 import PropTypes from 'prop-types';
-import { useRouter } from 'next/router';
-import Stack from '@mui/material/Stack';
-import { useState } from 'react';
 import {
   Box,
   Card,
@@ -25,8 +13,7 @@ import {
   Typography
 } from '@mui/material';
 
-
-export const BenefitListResults = ({ refrescos, ...rest }) => {
+export const RefrescoListResults = ({ refrescos, ...rest }) => {
   return (
     <Card {...rest}>
       <PerfectScrollbar>
@@ -99,6 +86,6 @@ export const BenefitListResults = ({ refrescos, ...rest }) => {
   );
 };
 
-BenefitListResults.propTypes = {
-  benefits: PropTypes.array.isRequired
+RefrescoListResults.propTypes = {
+  refrescos: PropTypes.array.isRequired
 };

@@ -2,8 +2,9 @@ import Head from 'next/head';
 import React from 'react';
 import axios from 'axios';
 import { Box, Container } from '@mui/material';
-import { BenefitListResults } from '../components/benefit/benefit-list-results';
-import { BenefitListToolbar } from '../components/benefit/benefit-list-toolbar';
+import { RefrescoListResults } from '../components/refresco/refresco-list-results';
+import { RefrescoListToolbar } from '../components/refresco/refresco-list-toolbar';
+import { RefrescoListEnding } from '../components/refresco/refresco-list-ending';
 import { DashboardLayout } from '../components/dashboard-layout';
 
 class Refrescos extends React.Component {
@@ -36,12 +37,14 @@ class Refrescos extends React.Component {
           }}
         >
           <Container maxWidth={false}>
-            <BenefitListToolbar />
+            <RefrescoListToolbar />
             <Box sx={{ mt: 3 }}>
-              <BenefitListResults refrescos={this.state.refrescos} />
+              <RefrescoListResults refrescos={this.state.refrescos} />
             </Box>
+            <RefrescoListEnding />
           </Container>
         </Box>
+
       </>
     );
   }
